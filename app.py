@@ -34,7 +34,9 @@ def create_app():
             new_filename = uuid.uuid4().hex + '.' + uploaded_file.filename.rsplit('.', 1)[1].lower()
 
             bucket_name = "s3-bucket-raka"
-            s3 = boto3.resource("s3")
+            s3 = boto3.resource("s3",
+                aws_access_key_id="xxxxxxxxxxxxxx",
+                aws_secret_access_key="xxxxxxxxxxxxx")
             s3.Bucket(bucket_name).upload_fileobj(uploaded_file, new_filename)
 
             file = File(original_filename=uploaded_file.filename, filename=new_filename,
